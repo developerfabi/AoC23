@@ -11,7 +11,7 @@ def aoc23_01_02(raw):
                     first = int(line[i])
                 last = int(line[i])
             else:
-                digit = get_digit(line[(i - 5):i])
+                digit = get_digit(line[(i - 4):(i+1)])
                 if digit != -1:
                     if first == -1:
                         first = digit
