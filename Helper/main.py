@@ -5,13 +5,15 @@ def aoc23_01_02(raw):
         first = -1
         last = -1
         i = 0
+        last_digit_index = 0
         while i < len(line):
             if line[i].isdigit():
                 if first == -1:
                     first = int(line[i])
                 last = int(line[i])
+                last_digit_index = i
             else:
-                digit = get_digit(line[(i - 4):(i+1)])
+                digit = get_digit(line[max(last_digit_index, (i - 4)):(i+1)])
                 if digit != -1:
                     if first == -1:
                         first = digit
