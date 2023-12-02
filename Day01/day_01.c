@@ -51,6 +51,7 @@ int day1_2(char input[]) {
         } else if (isdigit(input[i])) {
             if (first == -1) { first = input[i]; }
             last = input[i];
+            memset(numberText, '\0', 6);
         } else {
             int currentTextLength = strlen(numberText);
             if (currentTextLength >= 5) {
