@@ -51,5 +51,5 @@ def get_digit(raw):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    f = open("../Day01/aoc_01_input.txt", "r")
+    f = open("../Day01/day_01_input.txt", "r")
     print(aoc23_01_02(f.read()))
