@@ -5,9 +5,16 @@
 #include <stdlib.h>
 #include <string.h>
 #include "main.h"
-#include "Day01/day_01.h"
-#include "Day02/day_02.h"
-#include "Day03/day_03.h"
+#include "day_01.h"
+#include "day_02.h"
+#include "day_03.h"
+#include "day_04.h"
+#include "day_05.h"
+#include "day_06.h"
+#include "day_07.h"
+#include "day_08.h"
+#include "day_09.h"
+#include "day_10.h"
 
 int doTask(int day, int task, char input[]) {
     if (day == 1 && task == 1) return day1_1(input);
@@ -16,6 +23,20 @@ int doTask(int day, int task, char input[]) {
     if (day == 2 && task == 2) return day2_2(input);
     if (day == 3 && task == 1) return day3_1(input);
     if (day == 3 && task == 2) return day3_2(input);
+    if (day == 4 && task == 1) return day4_1(input);
+    if (day == 4 && task == 2) return day4_2(input);
+    if (day == 5 && task == 1) return day5_1(input);
+    if (day == 5 && task == 2) return day5_2(input);
+    if (day == 6 && task == 1) return day6_1(input);
+    if (day == 6 && task == 2) return day6_2(input);
+    if (day == 7 && task == 1) return day7_1(input);
+    if (day == 7 && task == 2) return day7_2(input);
+    if (day == 8 && task == 1) return day8_1(input);
+    if (day == 8 && task == 2) return day8_2(input);
+    if (day == 9 && task == 1) return day9_1(input);
+    if (day == 9 && task == 2) return day9_2(input);
+    if (day == 10 && task == 1) return day10_1(input);
+    if (day == 10 && task == 2) return day10_2(input);
     printf("No function found for day %d, task %d", day, task);
     exit(-1);
 }
