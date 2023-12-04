@@ -4,7 +4,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdlib.h>
-#include <printf.h>
+#include <stdio.h>
 #include "day_02.h"
 #include "../lib.h"
 
