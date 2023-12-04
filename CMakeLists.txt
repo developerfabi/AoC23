@@ -15,4 +15,6 @@ add_executable(AoC23
         Day02/day_02.c
         Day02/day_02.h
         Day03/day_03.c
-        Day03/day_03.h)
+        Day03/day_03.h
+        lib.c
+        lib.h)
