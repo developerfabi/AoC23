@@ -35,3 +35,28 @@ char * readUntilCharacter(char input[], char breakpoint, int * offsetPointer, in
     *offsetPointer += (i+1);
     return lineBuffer;
 }
+
+CharBuffer createCharBuffer(int size) {
+    CharBuffer buffer;
+    buffer.buffer = (char *) malloc((size+1) * sizeof(char));
+    buffer.size = size;
+    buffer.index = 0;
+    memset(buffer.buffer, '\0', size+1);
+    return buffer;
+}
+
+bool writeToCharBuffer(char toWrite, CharBuffer * buffer) {
+    if (buffer->index < buffer->size) {
+        buffer->buffer[buffer->index] = toWrite;
+        buffer->index += 1;
+    }
+}
+
+void resetCharBuffer(CharBuffer * buffer) {
+    memset(buffer->buffer, '\0', buffer->size + 1);
+    buffer->index = 0;
+}
+
+bool charBufferHasContent(CharBuffer * buffer) {
+    return buffer->index > 0;
+}
