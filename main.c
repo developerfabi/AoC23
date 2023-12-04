@@ -22,8 +22,8 @@ int doTask(int day, int task, char input[]) {
 
 int main(int argc, char * argv[]) {
 
-    if (argc != 3) {
-        printf("Expected two arguments (got %d): [Day] [Task]", (argc -1));
+    if (argc != 3 && argc != 4) {
+        printf("Expected two or three arguments (got %d): {Day} {Task} [Testfile]", (argc -1));
         return -1;
     }
 
@@ -41,8 +41,12 @@ int main(int argc, char * argv[]) {
     if (day < 10) sprintf(dayString, "0%d", day);
     else sprintf(dayString, "%d", day);
 
-    char path[30];
-    sprintf(path, "./../Day%s/day_%s_input.txt", dayString, dayString);
+    char path[40];
+    if (argc == 4) {
+        sprintf(path, "./../Day%s/day_%s_input_%s.txt", dayString, dayString, argv[3]);
+    } else {
+        sprintf(path, "./../Day%s/day_%s_input.txt", dayString, dayString);
+    }
     FILE * fp = fopen(path, "r");
     if (fp == NULL) {
         printf("No input file found (%s)\n", path);
