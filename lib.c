@@ -7,6 +7,15 @@
 #include <string.h>
 #include "lib.h"
 
+bool isBlank(char input[]) {
+    size_t length = strlen(input);
+    if (length <= 0) return true;
+    for (int i=0; i<length; i++) {
+        if (input[i] != ' ') return false;
+    }
+    return true;
+}
+
 char * readUntilCharacter(char input[], char breakpoint, int * offsetPointer, int defaultBufferSize) {
     size_t inputLength = strlen(input);
 
@@ -61,4 +70,16 @@ void resetCharBuffer(CharBuffer * buffer) {
 
 bool charBufferHasContent(CharBuffer * buffer) {
     return buffer->index > 0;
+}
+
+int64_t readIntAndResetCharBuffer(CharBuffer * buffer) {
+    char * succ;
+    int64_t reading = strtoull(buffer->buffer, &succ, 10);
+
+    resetCharBuffer(buffer);
+    return reading;
+}
+
+void releaseCharBuffer(CharBuffer * buffer) {
+    free(buffer->buffer);
 }
