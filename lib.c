@@ -49,7 +49,9 @@ bool writeToCharBuffer(char toWrite, CharBuffer * buffer) {
     if (buffer->index < buffer->size) {
         buffer->buffer[buffer->index] = toWrite;
         buffer->index += 1;
+        return true;
     }
+    return false;
 }
 
 void resetCharBuffer(CharBuffer * buffer) {
