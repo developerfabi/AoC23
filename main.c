@@ -16,7 +16,7 @@
 #include "day_09.h"
 #include "day_10.h"
 
-int doTask(int day, int task, char input[]) {
+int64_t doTask(int day, int task, char input[]) {
     if (day == 1 && task == 1) return day1_1(input);
     if (day == 1 && task == 2) return day1_2(input);
     if (day == 2 && task == 1) return day2_1(input);
@@ -83,7 +83,7 @@ int main(int argc, char * argv[]) {
     fclose(fp);
     input[filesize] = '\0';
 
-    int result = doTask(day, task, input);
-    printf("-> Result: %d\n", result);
+    int64_t result = doTask(day, task, input);
+    printf("-> Result: %lld\n", result);
     return 0;
 }

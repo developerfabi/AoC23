@@ -5,7 +5,7 @@
 #ifndef AOC23_MAIN_H
 #define AOC23_MAIN_H
 
-int doTask(int day, int task, char input[]);
+int64_t doTask(int day, int task, char input[]);
 int main(int argc, char * argv[]);
 
 #endif //AOC23_MAIN_H
