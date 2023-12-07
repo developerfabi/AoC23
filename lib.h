@@ -18,6 +18,8 @@ typedef struct {
     int index;
 } CharBuffer;
 
+int64_t parseInt(char * input);
+
 CharBuffer createCharBuffer(int size);
 bool writeToCharBuffer(char toWrite, CharBuffer * buffer);
 void resetCharBuffer(CharBuffer * buffer);

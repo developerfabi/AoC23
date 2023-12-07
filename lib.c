@@ -45,6 +45,12 @@ char * readUntilCharacter(char input[], char breakpoint, int * offsetPointer, in
     return lineBuffer;
 }
 
+int64_t parseInt(char * input) {
+    char * succ;
+    int64_t reading = strtoll(input, &succ, 10);
+    return reading;
+}
+
 CharBuffer createCharBuffer(int size) {
     CharBuffer buffer;
     buffer.buffer = (char *) malloc((size+1) * sizeof(char));
@@ -73,8 +79,7 @@ bool charBufferHasContent(CharBuffer * buffer) {
 }
 
 int64_t readIntAndResetCharBuffer(CharBuffer * buffer) {
-    char * succ;
-    int64_t reading = strtoll(buffer->buffer, &succ, 10);
+    int64_t reading = parseInt(buffer->buffer);
 
     resetCharBuffer(buffer);
     return reading;
