@@ -25,4 +25,7 @@ bool charBufferHasContent(CharBuffer * buffer);
 int64_t readIntAndResetCharBuffer(CharBuffer * buffer);
 void releaseCharBuffer(CharBuffer * buffer);
 
+int64_t * readNumbersWithBufferSize(char input[], int bufferSize, int * numberOfElements);
+int64_t * readNumbers(char input[], int * numberOfElements);
+
 #endif //AOC23_LIB_H
