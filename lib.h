@@ -9,6 +9,8 @@
 #define min(a, b) (((a) < (b)) ? (a) : (b))
 
 bool isBlank(char input[]);
+bool isPrime(int64_t number);
+bool allZero(int64_t * numbers, int numberOfNumbers);
 
 char *  readUntilCharacter(char input[], char breakpoint, int * offsetPointer, int defaultBufferSize);
 

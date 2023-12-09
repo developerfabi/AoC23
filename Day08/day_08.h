@@ -16,9 +16,17 @@ typedef struct {
     char * direction;
 } Directions;
 
-bool getDirection(Directions directions, int i);
+typedef struct {
+    Directions directions;
+    WayInstruction * wayInstructions;
+    int numberOfWayInstructions;
+} Route;
 
-int day8_1(char input[]);
-int day8_2(char input[]);
+Route parseRoute(char input[]);
+
+bool getDirection(Directions directions, int64_t i);
+
+int64_t day8_1(char input[]);
+int64_t day8_2(char input[]);
 
 #endif //AOC23_DAY_08_H

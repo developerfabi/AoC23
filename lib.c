@@ -17,6 +17,21 @@ bool isBlank(char input[]) {
     return true;
 }
 
+bool isPrime(int64_t number) {
+    if (number % 2 == 0) return false;
+    for(int i=3; i * i <= number; i+=2){
+        if(number%i==0) return false;
+    }
+    return true;
+}
+
+bool allZero(int64_t * numbers, int numberOfNumbers) {
+    for (int i=0; i<numberOfNumbers; i++) {
+        if (numbers[i] != 0) return false;
+    }
+    return true;
+}
+
 char * readUntilCharacter(char input[], char breakpoint, int * offsetPointer, int defaultBufferSize) {
     size_t inputLength = strlen(input);
 
