@@ -53,7 +53,7 @@ int day8_1(char input[]) {
         WayInstruction instruction;
         for (int j=0; j<numberOfWayInstructions; j++) {
             if (strcmp(currentWaypoint, wayInstructions[j].wayPoint) == 0) {
-                instruction = wayInstructions[i];
+                instruction = wayInstructions[j];
             }
         }
         if (!getDirection(directions, i)) { // Left
