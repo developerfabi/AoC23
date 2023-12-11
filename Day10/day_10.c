@@ -4,10 +4,10 @@
 
 #include "day_10.h"
 
-int day10_1(char input[]) {
+int64_t day10_1(char input[]) {
     return -1;
 }
 
-int day10_2(char input[]) {
+int64_t day10_2(char input[]) {
     return -1;
 }

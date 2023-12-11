@@ -15,6 +15,16 @@
 #include "day_08.h"
 #include "day_09.h"
 #include "day_10.h"
+#include "day_11.h"
+#include "day_12.h"
+#include "day_13.h"
+#include "day_14.h"
+#include "day_15.h"
+#include "day_16.h"
+#include "day_17.h"
+#include "day_18.h"
+#include "day_19.h"
+#include "day_20.h"
 
 int64_t doTask(int day, int task, char input[]) {
     if (day == 1 && task == 1) return day1_1(input);
@@ -37,6 +47,26 @@ int64_t doTask(int day, int task, char input[]) {
     if (day == 9 && task == 2) return day9_2(input);
     if (day == 10 && task == 1) return day10_1(input);
     if (day == 10 && task == 2) return day10_2(input);
+    if (day == 11 && task == 1) return day11_1(input);
+    if (day == 11 && task == 2) return day11_2(input);
+    if (day == 12 && task == 1) return day12_1(input);
+    if (day == 12 && task == 2) return day12_2(input);
+    if (day == 13 && task == 1) return day13_1(input);
+    if (day == 13 && task == 2) return day13_2(input);
+    if (day == 14 && task == 1) return day14_1(input);
+    if (day == 14 && task == 2) return day14_2(input);
+    if (day == 15 && task == 1) return day15_1(input);
+    if (day == 15 && task == 2) return day15_2(input);
+    if (day == 16 && task == 1) return day16_1(input);
+    if (day == 16 && task == 2) return day16_2(input);
+    if (day == 17 && task == 1) return day17_1(input);
+    if (day == 17 && task == 2) return day17_2(input);
+    if (day == 18 && task == 1) return day18_1(input);
+    if (day == 18 && task == 2) return day18_2(input);
+    if (day == 19 && task == 1) return day19_1(input);
+    if (day == 19 && task == 2) return day19_2(input);
+    if (day == 20 && task == 1) return day20_1(input);
+    if (day == 20 && task == 2) return day20_2(input);
     printf("No function found for day %d, task %d", day, task);
     exit(-1);
 }

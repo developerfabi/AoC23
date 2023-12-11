@@ -5,7 +5,9 @@
 #ifndef AOC23_DAY_10_H
 #define AOC23_DAY_10_H
 
-int day10_1(char input[]);
-int day10_2(char input[]);
+#include <stdint.h>
+
+int64_t day10_1(char input[]);
+int64_t day10_2(char input[]);
 
 #endif //AOC23_DAY_10_H

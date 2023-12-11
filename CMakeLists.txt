@@ -13,6 +13,16 @@ include_directories(Day07)
 include_directories(Day08)
 include_directories(Day09)
 include_directories(Day10)
+include_directories(Day11)
+include_directories(Day12)
+include_directories(Day13)
+include_directories(Day14)
+include_directories(Day15)
+include_directories(Day16)
+include_directories(Day17)
+include_directories(Day18)
+include_directories(Day19)
+include_directories(Day20)
 
 add_executable(AoC23
         main.c
@@ -39,4 +49,24 @@ add_executable(AoC23
         Day09/day_09.h
         Day10/day_10.c
         Day10/day_10.h
+        Day11/day_11.c
+        Day11/day_11.h
+        Day12/day_12.c
+        Day12/day_12.h
+        Day13/day_13.c
+        Day13/day_13.h
+        Day14/day_14.c
+        Day14/day_14.h
+        Day15/day_15.c
+        Day15/day_15.h
+        Day16/day_16.c
+        Day16/day_16.h
+        Day17/day_17.c
+        Day17/day_17.h
+        Day18/day_18.c
+        Day18/day_18.h
+        Day19/day_19.c
+        Day19/day_19.h
+        Day20/day_20.c
+        Day20/day_20.h
 )
