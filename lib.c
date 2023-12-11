@@ -122,7 +122,7 @@ int64_t * readNumbersWithBufferSize(char input[], int bufferSize, int * numberOf
                 array[count] = readIntAndResetCharBuffer(&buffer);
                 count += 1;
             }
-        } else if (isdigit(input[i])) {
+        } else if (isdigit(input[i]) || input[i] == '-') {
             writeToCharBuffer(input[i], &buffer);
         }
     }
