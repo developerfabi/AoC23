@@ -39,10 +39,13 @@ bool connectsTo(Direction direction, PipeType pipeType);
 Maze parseMaze(char input[]);
 
 Pipe getPipeAt(Position position, Maze maze);
+PipeType getMainLoopStartingPipeType(Maze maze);
 Position * getMainLoopStartingDirections(Maze maze);
 Position getNextPipe(Position currentPosition, Position prevPosition, Maze maze);
 
 int64_t assignMainLoopDistance(Maze * maze);
+
+int64_t scanline(Maze maze);
 
 int64_t day10_1(char input[]);
 int64_t day10_2(char input[]);

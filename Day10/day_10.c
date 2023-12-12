@@ -58,44 +58,65 @@ Pipe getPipeAt(Position position, Maze maze) {
     return maze.matrix[position.vertical][position.horizontal];
 }
 
-Position * getMainLoopStartingDirections(Maze maze) {
-    Position firstNeighbour = {-1, -1};
-    Position secondNeighbour = {-1, -1};
+PipeType getMainLoopStartingPipeType(Maze maze) {
+    bool connectsAbove = false;
+    bool connectsBelow = false;
+    bool connectsLeft = false;
+    bool connectsRight = false;
 
     if (maze.start.vertical > 0) {
         Pipe above = maze.matrix[maze.start.vertical-1][maze.start.horizontal];
-        if (connectsTo(BELOW, above.type)) {
-            Position * toAssign = firstNeighbour.vertical==-1 ? &firstNeighbour : &secondNeighbour;
-            toAssign->vertical = maze.start.vertical-1;
-            toAssign->horizontal = maze.start.horizontal;
-        }
+        connectsAbove = connectsTo(BELOW, above.type);
     }
 
     if (maze.start.vertical < maze.height-1) {
         Pipe below = maze.matrix[maze.start.vertical+1][maze.start.horizontal];
-        if (connectsTo(ABOVE, below.type)) {
-            Position * toAssign = firstNeighbour.vertical==-1 ? &firstNeighbour : &secondNeighbour;
-            toAssign->vertical = maze.start.vertical+1;
-            toAssign->horizontal = maze.start.horizontal;
-        }
+        connectsBelow = connectsTo(ABOVE, below.type);
     }
 
     if (maze.start.horizontal > 0) {
         Pipe left = maze.matrix[maze.start.vertical][maze.start.horizontal-1];
-        if (connectsTo(RIGHT, left.type)) {
-            Position * toAssign = firstNeighbour.vertical==-1 ? &firstNeighbour : &secondNeighbour;
-            toAssign->vertical = maze.start.vertical;
-            toAssign->horizontal = maze.start.horizontal-1;
-        }
+        connectsLeft = connectsTo(RIGHT, left.type);
     }
 
     if (maze.start.horizontal < maze.width-1) {
         Pipe right = maze.matrix[maze.start.vertical][maze.start.horizontal+1];
-        if (connectsTo(LEFT, right.type)) {
-            Position * toAssign = firstNeighbour.vertical==-1 ? &firstNeighbour : &secondNeighbour;
-            toAssign->vertical = maze.start.vertical;
-            toAssign->horizontal = maze.start.horizontal+1;
-        }
+        connectsRight = connectsTo(LEFT, right.type);
+    }
+
+    if (connectsAbove && connectsBelow) return VERTICAL;
+    if (connectsLeft && connectsRight) return HORIZONTAL;
+    if (connectsAbove && connectsRight) return NORTH_EAST;
+    if (connectsAbove && connectsLeft) return NORTH_WEST;
+    if (connectsBelow && connectsRight) return SOUTH_EAST;
+    if (connectsBelow && connectsLeft) return SOUTH_WEST;
+    return NONE;
+}
+
+Position * getMainLoopStartingDirections(Maze maze) {
+    Position firstNeighbour = {-1, -1};
+    Position secondNeighbour = {-1, -1};
+
+    PipeType type = getMainLoopStartingPipeType(maze);
+    if (type == VERTICAL || type == NORTH_EAST || type == NORTH_WEST) {
+        Position * toAssign = firstNeighbour.vertical==-1 ? &firstNeighbour : &secondNeighbour;
+        toAssign->vertical = maze.start.vertical-1;
+        toAssign->horizontal = maze.start.horizontal;
+    }
+    if (type == VERTICAL || type == SOUTH_EAST || type == SOUTH_WEST) {
+        Position * toAssign = firstNeighbour.vertical==-1 ? &firstNeighbour : &secondNeighbour;
+        toAssign->vertical = maze.start.vertical+1;
+        toAssign->horizontal = maze.start.horizontal;
+    }
+    if (type == HORIZONTAL || type == NORTH_WEST || type == SOUTH_WEST) {
+        Position * toAssign = firstNeighbour.vertical==-1 ? &firstNeighbour : &secondNeighbour;
+        toAssign->vertical = maze.start.vertical;
+        toAssign->horizontal = maze.start.horizontal-1;
+    }
+    if (type == HORIZONTAL || type == NORTH_EAST || type == SOUTH_EAST) {
+        Position * toAssign = firstNeighbour.vertical==-1 ? &firstNeighbour : &secondNeighbour;
+        toAssign->vertical = maze.start.vertical;
+        toAssign->horizontal = maze.start.horizontal+1;
     }
 
     Position * pos = calloc(2, sizeof(Position));
@@ -140,6 +161,7 @@ int64_t assignMainLoopDistance(Maze * maze) {
     Position * pastPositions = calloc(2, sizeof(Position));
     pastPositions[0] = maze->start;
     pastPositions[1] = maze->start;
+    maze->matrix[maze->start.vertical][maze->start.horizontal].mainLoopDistance = 0;
     Position * positions = getMainLoopStartingDirections(*maze);
 
     int distance = 1;
@@ -157,11 +179,51 @@ int64_t assignMainLoopDistance(Maze * maze) {
     return distance-1;
 }
 
+int64_t scanline(Maze maze) {
+    int64_t numberOfInsideTiles = 0;
+    int comingFrom = 0; // 0: Not on a border, 1: On Border, came from top, -1: On Border, came from bottom
+    bool inside = false;
+
+    for (int line=0; line<maze.height; line++) {
+        comingFrom = 0;
+        inside=false;
+        for (int column=0; column<maze.width; column++) {
+            Pipe pipe = maze.matrix[line][column];
+            if (pipe.mainLoopDistance >= 0) { // Part of main loop
+                PipeType type = pipe.type == START ? getMainLoopStartingPipeType(maze) : pipe.type;
+                if (type==VERTICAL) inside = !inside;
+                else {
+                    if (comingFrom > 0) {
+                        if (type==NORTH_WEST) comingFrom = 0;
+                        else if (type==SOUTH_WEST) {
+                            comingFrom = 0;
+                            inside = !inside;
+                        }
+                    } else if (comingFrom < 0) {
+                        if (type==SOUTH_WEST) comingFrom = 0;
+                        else if (type==NORTH_WEST) {
+                            comingFrom = 0;
+                            inside = !inside;
+                        }
+                    } else {
+                        if (type==NORTH_EAST) comingFrom = 1;
+                        else if (type==SOUTH_EAST) comingFrom = -1;
+                    }
+                }
+            } else if (inside) numberOfInsideTiles += 1;
+        }
+    }
+
+    return numberOfInsideTiles;
+}
+
 int64_t day10_1(char input[]) {
     Maze maze = parseMaze(input);
     return assignMainLoopDistance(&maze);
 }
 
 int64_t day10_2(char input[]) {
-    return -1;
+    Maze maze = parseMaze(input);
+    assignMainLoopDistance(&maze);
+    return scanline(maze);
 }
