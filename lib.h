@@ -7,6 +7,7 @@
 #define AOC23_LIB_H
 
 #define min(a, b) (((a) < (b)) ? (a) : (b))
+#define max(a, b) (((a) > (b)) ? (a) : (b))
 
 bool isBlank(char input[]);
 bool isPrime(int64_t number);
