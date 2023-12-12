@@ -92,7 +92,7 @@ int64_t calculateDistance(Galaxy first, Galaxy second, Universe universe, int ex
     return distance;
 }
 
-int64_t day11_1(char input[]) { // 6770653
+int64_t day11_1(char input[]) {
     Universe universe = parseUniverse(input);
     calculateEmptySpace(&universe);
 
@@ -105,7 +105,7 @@ int64_t day11_1(char input[]) { // 6770653
     return totalCountOfDistance;
 }
 
-int64_t day11_2(char input[]) { // 159730955545/35721160737
+int64_t day11_2(char input[]) {
     Universe universe = parseUniverse(input);
     calculateEmptySpace(&universe);
 
