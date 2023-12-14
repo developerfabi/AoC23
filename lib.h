@@ -13,7 +13,8 @@ bool isBlank(char input[]);
 bool isPrime(int64_t number);
 bool allZero(int64_t * numbers, int numberOfNumbers);
 
-char *  readUntilCharacter(char input[], char breakpoint, int * offsetPointer, int defaultBufferSize);
+char * readUntilCharacter(char input[], char breakpoint, int * offsetPointer, int defaultBufferSize);
+char * readUntilEmptyLine(char input[], int * offsetPointer, int defaultBufferSize);
 
 typedef struct {
     char * buffer;
@@ -31,6 +32,8 @@ int64_t readIntAndResetCharBuffer(CharBuffer * buffer);
 void releaseCharBuffer(CharBuffer * buffer);
 
 int64_t * readNumbersWithBufferSize(char input[], int bufferSize, int * numberOfElements);
+int64_t * readNumbersWithBufferSizeAndDelimiter(char input[], int bufferSize, char delimiter, int * numberOfElements);
 int64_t * readNumbers(char input[], int * numberOfElements);
+int64_t * readNumbersWithDelimiter(char input[], char delimiter, int * numberOfElements);
 
 #endif //AOC23_LIB_H

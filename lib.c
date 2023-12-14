@@ -60,6 +60,39 @@ char * readUntilCharacter(char input[], char breakpoint, int * offsetPointer, in
     return lineBuffer;
 }
 
+char * readUntilEmptyLine(char input[], int * offsetPointer, int defaultBufferSize) {
+    size_t inputLength = strlen(input);
+
+    size_t bufferSize = defaultBufferSize;
+    char * lineBuffer = malloc(bufferSize+1);
+
+    bool newlineAdjacent = false;
+
+    int i = 0;
+    while (i <= inputLength) {
+        if (i >= bufferSize) {
+            bufferSize = bufferSize * 2;
+            lineBuffer = realloc(lineBuffer, bufferSize+1);
+        }
+        if (i >= inputLength || (newlineAdjacent && input[i+(*offsetPointer)] == '\n')) {
+            lineBuffer[newlineAdjacent ? i-1 : i] = '\0';
+            *offsetPointer += (i+1);
+            return lineBuffer;
+        } else {
+            if (newlineAdjacent) lineBuffer[i-1] = '\n';
+            if (input[i+(*offsetPointer)] == '\n') newlineAdjacent = true;
+            else newlineAdjacent = false;
+            lineBuffer[i] = input[i+(*offsetPointer)];
+        }
+
+        i ++;
+    }
+
+    lineBuffer[i] = '\0';
+    *offsetPointer += (i+1);
+    return lineBuffer;
+}
+
 int64_t parseInt(char * input) {
     char * succ;
     int64_t reading = strtoll(input, &succ, 10);
@@ -105,6 +138,10 @@ void releaseCharBuffer(CharBuffer * buffer) {
 }
 
 int64_t * readNumbersWithBufferSize(char input[], int bufferSize, int * numberOfElements) {
+    return readNumbersWithBufferSizeAndDelimiter(input, bufferSize, ' ', numberOfElements);
+}
+
+int64_t * readNumbersWithBufferSizeAndDelimiter(char input[], int bufferSize, char delimiter, int * numberOfElements) {
     size_t inputLength = strlen(input);
     CharBuffer buffer = createCharBuffer(32);
 
@@ -113,7 +150,7 @@ int64_t * readNumbersWithBufferSize(char input[], int bufferSize, int * numberOf
     int64_t * array = calloc(bufferSize, sizeof(int64_t));
 
     for (int i = 0; i <= inputLength; i++) {
-        if (i >= inputLength || input[i] == ' ') {
+        if (i >= inputLength || input[i] == delimiter) {
             if (charBufferHasContent(&buffer)) {
                 while (count >= bufferSize) {
                     bufferSize *= 2;
@@ -138,4 +175,8 @@ int64_t * readNumbersWithBufferSize(char input[], int bufferSize, int * numberOf
 
 int64_t * readNumbers(char input[], int * numberOfElements) {
     return readNumbersWithBufferSize(input, 100, numberOfElements);
+}
+
+int64_t * readNumbersWithDelimiter(char input[], char delimiter, int * numberOfElements) {
+    return readNumbersWithBufferSizeAndDelimiter(input, 100, delimiter, numberOfElements);
 }
