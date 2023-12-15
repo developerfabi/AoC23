@@ -6,14 +6,7 @@
 #define AOC23_DAY_13_H
 
 #include <stdint.h>
-
-typedef struct {
-    char ** matrix;
-    int height;
-    int width;
-} Pattern;
-
-Pattern parsePattern(char * input);
+#include "../lib.h"
 
 void toggleSymbol(Pattern * pattern, int row, int column);
 

@@ -2,30 +2,10 @@
 // Created by Fabian Metzger on 11.12.23.
 //
 
-#include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 #include "day_13.h"
 #include "../lib.h"
-
-Pattern parsePattern(char * input) {
-    size_t inputLength = strlen(input);
-
-    Pattern pattern = {NULL, 0, -1};
-
-    int offset = 0;
-    while (offset < inputLength) {
-        char * line = readUntilCharacter(input, '\n', &offset, 100);
-        int width = strlen(line);
-
-        pattern.matrix = realloc(pattern.matrix, (pattern.height+1) * sizeof(char *));
-        pattern.matrix[pattern.height] = line;
-        pattern.height += 1;
-        pattern.width = (pattern.width > width || pattern.width<0) ? width : pattern.width;
-    }
-
-    return pattern;
-}
 
 void toggleSymbol(Pattern * pattern, int row, int column) {
     if (pattern->matrix[row][column] == '.') pattern->matrix[row][column] = '#';
