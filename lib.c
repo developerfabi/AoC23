@@ -63,6 +63,18 @@ bool allZero(int64_t * numbers, int numberOfNumbers) {
     return true;
 }
 
+void initializeReader(StringReader * reader, char * input) {
+    reader->length = strlen(input);
+    reader->offset = 0;
+    reader->string = input;
+}
+
+char * readUntil(StringReader * reader, char breakpoint) {
+    if (reader->offset < reader->length) {
+        return readUntilCharacter(reader->string, breakpoint, &reader->offset, 100);
+    } else return NULL;
+}
+
 char * readUntilCharacter(char input[], char breakpoint, int * offsetPointer, int defaultBufferSize) {
     size_t inputLength = strlen(input);
 

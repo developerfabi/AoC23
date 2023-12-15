@@ -23,6 +23,16 @@ bool isBlank(char input[]);
 bool isPrime(int64_t number);
 bool allZero(int64_t * numbers, int numberOfNumbers);
 
+typedef struct {
+    size_t length;
+    int offset;
+    char * string;
+} StringReader;
+
+void initializeReader(StringReader * reader, char * input);
+char * readUntil(StringReader * reader, char breakpoint);
+void freeReader(StringReader * reader);
+
 char * readUntilCharacter(char input[], char breakpoint, int * offsetPointer, int defaultBufferSize);
 char * readUntilEmptyLine(char input[], int * offsetPointer, int defaultBufferSize);
 
