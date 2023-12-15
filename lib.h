@@ -2,12 +2,22 @@
 // Created by Fabian Metzger on 04.12.23.
 //
 #include <stdbool.h>
+#include <string.h>
 
 #ifndef AOC23_LIB_H
 #define AOC23_LIB_H
 
 #define min(a, b) (((a) < (b)) ? (a) : (b))
 #define max(a, b) (((a) > (b)) ? (a) : (b))
+
+typedef struct {
+    char ** matrix;
+    int height;
+    int width;
+} Pattern;
+
+Pattern parsePattern(char * input);
+char * printPattern(Pattern pattern);
 
 bool isBlank(char input[]);
 bool isPrime(int64_t number);

@@ -8,6 +8,37 @@
 #include <ctype.h>
 #include "lib.h"
 
+Pattern parsePattern(char * input) {
+    StringReader reader;
+    initializeReader(&reader, input);
+
+    Pattern pattern = {NULL, 0, -1};
+
+    char * line;
+    while ((line = readUntil(&reader, '\n'))) {
+        int width = strlen(line);
+
+        pattern.matrix = realloc(pattern.matrix, (pattern.height+1) * sizeof(char *));
+        pattern.matrix[pattern.height] = line;
+        pattern.height += 1;
+        pattern.width = (pattern.width > width || pattern.width<0) ? width : pattern.width;
+    }
+
+    return pattern;
+}
+
+char * printPattern(Pattern pattern) {
+    char * output = calloc((pattern.width+1) * pattern.height, sizeof(char));
+    char * offsetPointer = output;
+    for (int i=0; i<pattern.height; i++) {
+        memcpy(offsetPointer, pattern.matrix[i], pattern.width);
+        offsetPointer[pattern.width] = '/';
+        offsetPointer += (pattern.width+1);
+    }
+    offsetPointer[0] = '\0';
+    return output;
+}
+
 bool isBlank(char input[]) {
     size_t length = strlen(input);
     if (length <= 0) return true;
